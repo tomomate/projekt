@@ -1,0 +1,45 @@
+<script>
+var req = null;
+
+function search_func(value)
+{
+    if (req != null) req.abort();
+
+    req = $.ajax({
+        type: "GET",
+        url: "php/getData.php",
+        data: {'q' : value},
+        dataType: "text",
+        success: function(msg){
+			var div = document.getElementById('divID');
+
+			div.innerHTML = msg;
+        }
+    });
+}
+</script>
+<form class="form-horizontal form-label-left" novalidate>
+						<div class="row" style="text-align:center;">
+                      <p>Ajax pretraga pomocu jQuery
+                      </p>
+					  </div>
+					  
+					  <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Pretraga po imenu ili prezimenu <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="sample_search" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="sample_search" 
+						  placeholder="e.g Jon Doe" required="required" type="text" size="30" onkeyup="search_func(this.value);">
+                        </div>
+                      </div>
+					  
+                      <span class="section">Podaci o kupcu</span>
+					  
+					  <div id="divID" ></div>
+</form>	
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+    <!-- validator -->
+    <script src="vendors/validator/validator.js"></script>

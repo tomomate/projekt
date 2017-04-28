@@ -1,0 +1,50 @@
+<script>
+function showResult(str) {
+  if (str.length==0) { 
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+      document.getElementById("livesearch").innerHTML=this.responseText;
+    }
+  }
+  xmlhttp.open("GET","php/getData.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
+
+
+<form class="form-horizontal form-label-left" novalidate>
+						<div class="row" style="text-align:center;">
+                      <p>Ajax pretraga pomocu XMLHttpRequest
+                      </p>
+					  </div>
+					  
+					  <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Pretraga po imenu ili prezimenu <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="e.g Jon Doe" required="required" type="text" size="30" onkeyup="showResult(this.value)">
+                        </div>
+                      </div>
+					  
+                      <span class="section">Podaci o kupcu</span>
+
+					  <div class="item form-group" id="livesearch">
+                      </div>
+                      
+</form>	
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+    <!-- validator -->
+    <script src="vendors/validator/validator.js"></script>
